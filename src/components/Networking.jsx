@@ -37,7 +37,7 @@ export default function Networking() {
   const cur = networkTopics.find((t) => t.id === active)
   const CurIcon = Icons[cur.icon]
   return (
-    <Section id="networking" eyebrow="// 03 — Network Engineering" title="Networking Showcase" tint="bg-navy/40">
+    <Section id="networking" eyebrow=" 03 — Network Engineering" title="Networking Showcase" tint="bg-navy/40">
       <div className="grid gap-8 lg:grid-cols-[1.3fr_1fr]">
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
           {networkTopics.map((t) => {

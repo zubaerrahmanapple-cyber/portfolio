@@ -6,6 +6,7 @@ import {
   Github,
   Linkedin,
   Mail,
+  MessageCircle,
   GraduationCap,
   Network,
   Code2,
@@ -16,20 +17,21 @@ import NetworkBg from './NetworkBg.jsx'
 import { profile } from '../data/portfolio.js'
 import JubaerPhoto from '../assets/jubaer.png'
 
-const Ext = ({ href, children, label }) => (
+const Ext = ({ href, children, label, className = '' }) => (
   href ? (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
       aria-label={label}
-      className="flex h-11 w-11 items-center justify-center rounded-full border border-blue-400/30 bg-blue-500/5 text-slate-200 transition duration-300 hover:scale-110 hover:border-cyan-400 hover:bg-blue-500/20 hover:text-cyan-300"
+      title={label}
+      className={`flex h-11 w-11 items-center justify-center rounded-full border border-blue-400/30 bg-blue-500/5 text-slate-200 transition duration-300 hover:scale-110 hover:border-cyan-400 hover:bg-blue-500/20 hover:text-cyan-300 ${className}`}
     >
       {children}
     </a>
   ) : (
     <span
-      title="Add this link in portfolio settings"
+      title={`${label} link not added yet`}
       aria-label={label}
       className="flex h-11 w-11 cursor-not-allowed items-center justify-center rounded-full border border-white/10 text-slate-500"
     >
@@ -39,6 +41,10 @@ const Ext = ({ href, children, label }) => (
 )
 
 export default function Hero() {
+  const whatsappLink = profile.phone
+    ? `https://wa.me/${profile.phone.replace(/\D/g, '')}`
+    : ''
+
   return (
     <section
       id="home"
@@ -118,7 +124,9 @@ export default function Hero() {
 
           </div>
 
+          {/* SOCIAL MEDIA LINKS */}
           <div className="mt-5 flex gap-3">
+
             <Ext href={profile.github} label="GitHub">
               <Github size={20} />
             </Ext>
@@ -128,11 +136,24 @@ export default function Hero() {
             </Ext>
 
             <Ext
-              href={profile.email ? `mailto:${profile.email}` : ''}
-              label="Email"
+              href={whatsappLink}
+              label="WhatsApp"
+              className="hover:border-green-400 hover:bg-green-500/10 hover:text-green-400"
+            >
+              <MessageCircle size={20} />
+            </Ext>
+
+            <Ext
+              href={
+                profile.email
+                  ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(profile.email)}`
+                  : ''
+              }
+              label="Gmail"
             >
               <Mail size={20} />
             </Ext>
+
           </div>
 
           {/* PROFESSIONAL HIGHLIGHTS */}
@@ -196,7 +217,6 @@ export default function Hero() {
             />
 
           </div>
-
         </motion.div>
 
       </div>
